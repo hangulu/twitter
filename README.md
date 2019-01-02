@@ -1,2 +1,6 @@
-# twitter
-Projects that involve the Twitter API.
+# Twitter Projects
+
+This repository includes several projects that involve the Twitter API.
+
+### Contents
+* 
