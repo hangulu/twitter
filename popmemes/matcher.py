@@ -15,25 +15,74 @@ mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import os
 
-# Extract the local features of the Pikachu meme
-
 dataset_path = '../popmemes/test_memes'
-# Import the Pikachu meme
-pika_1 = cv2.imread(os.path.join(dataset_path, 'pikachu_1.png'))
-# Convert from cv's BRG default color order to RGB
-pika_1 = cv2.cvtColor(pika_1, cv2.COLOR_BGR2RGB)
 
-# OpenCV 3 backward incompatibility: Do not create a detector with `cv2.ORB()`.
+def feature_detection(meme_name):
+    """
+    Detect and draw the key features in an image.
+
+    meme_name (string): the name of the image
+    """
+    # Import the meme
+    meme = cv2.imread(os.path.join(dataset_path, meme_name))
+    # Convert from cv's BRG default color order to RGB
+    meme = cv2.cvtColor(meme, cv2.COLOR_BGR2RGB)
+
+    # OpenCV 3 backward incompatibility: Do not create a detector with `cv2.ORB()`.
+    orb = cv2.ORB_create()
+
+    # Extract the key points of the photo
+    key_points, description = orb.detectAndCompute(meme, None)
+    img_keypoints = cv2.drawKeypoints(meme,
+                                      key_points,
+                                      meme,
+                                      flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
+    # Draw circles.
+    plt.figure(figsize=(16, 16))
+    plt.title('ORB Interest Points')
+    plt.imshow(img_keypoints); plt.show()
+
+# Feature matching
+# Extract the same features from a different, but similar picture
+
+def image_detect_and_compute(detector, img_name):
+    """
+    Detect and compute interest points and their descriptors.
+
+    detector: detector object
+    img_name (string): name of the image
+    return: a triple of the image, key points, and description
+    """
+    img = cv2.imread(os.path.join(dataset_path, img_name))
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    kp, des = detector.detectAndCompute(img, None)
+    return img, kp, des
+
+
+def draw_image_matches(detector, img1_name, img2_name, nmatches=20):
+    """
+    Draw ORB feature matches of the given two images.
+
+    detector: detector object
+    img1_name (string): name of the first image
+    img2_name (string): name of the second image
+    matches (int): number of matches to make
+    """
+    img1, kp1, des1 = image_detect_and_compute(detector, img1_name)
+    img2, kp2, des2 = image_detect_and_compute(detector, img2_name)
+
+    bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+    matches = bf.match(des1, des2)
+    # Sort matches by distance - best come first
+    matches = sorted(matches, key = lambda x: x.distance)
+
+    # Show top 10 matches
+    img_matches = cv2.drawMatches(img1, kp1, img2, kp2, matches[:nmatches], img2, flags=2)
+    plt.figure(figsize=(16, 16))
+    plt.title(type(detector))
+    plt.imshow(img_matches); plt.show()
+
 orb = cv2.ORB_create()
-
-# Extract the key points of the photo
-key_points, description = orb.detectAndCompute(pika_1, None)
-img_keypoints = cv2.drawKeypoints(pika_1,
-                                  key_points,
-                                  pika_1,
-                                  flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-
-# Draw circles.
-plt.figure(figsize=(16, 16))
-plt.title('ORB Interest Points')
-plt.imshow(img_keypoints); plt.show()
+# draw_image_matches(orb, 'pikachu_1.png', 'pikachu_2.png')
+draw_image_matches(orb, 'pikachu_1.png', 'pikachu_2.jpg')
