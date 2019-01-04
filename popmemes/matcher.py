@@ -60,7 +60,7 @@ def image_detect_and_compute(detector, img_name):
     return img, kp, des
 
 
-def draw_image_matches(detector, img1_name, img2_name, nmatches=20):
+def draw_image_matches(detector, img1_name, img2_name, nmatches=1):
     """
     Draw ORB feature matches of the given two images.
 
@@ -77,12 +77,43 @@ def draw_image_matches(detector, img1_name, img2_name, nmatches=20):
     # Sort matches by distance - best come first
     matches = sorted(matches, key = lambda x: x.distance)
 
-    # Show top 10 matches
-    img_matches = cv2.drawMatches(img1, kp1, img2, kp2, matches[:nmatches], img2, flags=2)
+    img_matches = cv2.drawMatches(img1, kp1, img2, kp2, matches, img2, flags=2)
     plt.figure(figsize=(16, 16))
     plt.title(type(detector))
     plt.imshow(img_matches); plt.show()
 
+
+def check_similarity(detector, img1_name, img2_name, nmatches=1):
+    """
+    Check how similar two images are.
+
+    detector: detector object
+    img1_name (string): name of the first image
+    img2_name (string): name of the second image
+    matches (int): number of matches to make
+    """
+    img1, kp1, des1 = image_detect_and_compute(detector, img1_name)
+    img2, kp2, des2 = image_detect_and_compute(detector, img2_name)
+
+    bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+    matches = bf.match(des1, des2)
+
+    img_matches = cv2.drawMatches(img1, kp1, img2, kp2, matches, img2, flags=2)
+
+    # Define similarity as the number of key points matched out of the total
+    # number of key points in each image
+    similarity = len(matches) / (len(kp1) + len(kp2))
+
+    # Define a threshold of similarity from empirical testing (two Pikachu
+    # memes): 54 / 255 ~ 21%
+    if similarity > 0.2:
+        print(f"{img1_name} and {img2_name} are a match, with a similarity of {str(similarity)}.")
+    else:
+        print(f"{img1_name} and {img2_name} are not a match, with a similarity of {str(similarity)}.")
+
+
 orb = cv2.ORB_create()
-# draw_image_matches(orb, 'pikachu_1.png', 'pikachu_2.png')
-draw_image_matches(orb, 'pikachu_1.png', 'pikachu_2.jpg')
+check_similarity(orb, 'pikachu_1.png', 'pikachu_2.png')
+check_similarity(orb, 'pikachu_1.png', 'orange.jpg')
+check_similarity(orb, 'pikachu_1.png', 'upside_down_pika.jpg')
+check_similarity(orb, 'pikachu_2.png', 'upside_down_pika.jpg')
