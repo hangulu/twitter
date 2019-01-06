@@ -11,6 +11,7 @@ matplotlib = "*"
 numpy = "*"
 pandas = "*"
 tweepy = "*"
+wget = "*"
 
 [requires]
 python_version = "3.6"
