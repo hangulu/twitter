@@ -15,7 +15,7 @@ mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import os
 
-dataset_path = '../popmemes/test_memes'
+dataset_path = '../popmemes/downloads'
 
 def feature_detection(meme_name):
     """
@@ -91,6 +91,8 @@ def check_similarity(detector, img1_name, img2_name, nmatches=1):
     img1_name (string): name of the first image
     img2_name (string): name of the second image
     matches (int): number of matches to make
+    return: similarity, the number of key points matches out of the total
+    number of key points in each image
     """
     img1, kp1, des1 = image_detect_and_compute(detector, img1_name)
     img2, kp2, des2 = image_detect_and_compute(detector, img2_name)
@@ -105,15 +107,9 @@ def check_similarity(detector, img1_name, img2_name, nmatches=1):
     similarity = len(matches) / (len(kp1) + len(kp2))
 
     # Define a threshold of similarity from empirical testing (two Pikachu
-    # memes): 54 / 255 ~ 21%
-    if similarity > 0.2:
+    # memes): 42 / 217 ~ 19%
+    if similarity > 0.18:
         print(f"{img1_name} and {img2_name} are a match, with a similarity of {str(similarity)}.")
     else:
         print(f"{img1_name} and {img2_name} are not a match, with a similarity of {str(similarity)}.")
-
-
-orb = cv2.ORB_create()
-check_similarity(orb, 'pikachu_1.png', 'pikachu_2.png')
-check_similarity(orb, 'pikachu_1.png', 'orange.jpg')
-check_similarity(orb, 'pikachu_1.png', 'upside_down_pika.jpg')
-check_similarity(orb, 'pikachu_2.png', 'upside_down_pika.jpg')
+    return similarity
