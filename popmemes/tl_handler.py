@@ -25,14 +25,14 @@ def get_media(api, num_tweets=25):
     num_tweets (int): The number of tweets to scan on the timeline.
     return: a set of urls for media
     """
-    # Store the media urls in a set
-    media_files = set()
+    # Store the media urls in a list
+    media_files = []
     # Iterate through the timeline and extract images
     for status in tweepy.Cursor(api.home_timeline).items(num_tweets):
         media = status.entities.get('media', [])
         # Add non-empty media to the set
         if media:
-            media_files.add(media[0]['media_url'])
+            media_files.append(media[0]['media_url'])
     return media_files
 
 def downloader(urls, path):
