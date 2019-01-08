@@ -8,6 +8,7 @@ import wget
 import cv2
 import itertools
 from collections import Counter
+
 import matcher
 import tl_handler
 
@@ -22,11 +23,23 @@ api = tweepy.API(auth)
 # ORB creation
 orb = cv2.ORB_create()
 
-# Download the latest images from the timeline
-num_images = tl_handler.get_and_download(api, '/Users/hakeemangulu/Code/twitter/popmemes/downloads', num_tweets=100)
+# Accept the user's handle as input
+user = "@" + input("Whose timeline would you like to analyze? ")
+
+if user == "@adminpass":
+    print("You've entered the admin password. Now analyzing @hakeemangulu's full timeline. \n")
+    num_images = tl_handler.get_and_download(api, '/Users/hakeemangulu/Code/twitter/popmemes/downloads', num_tweets=200, admin=True)
+else:
+    print(f"Now analyzing {user}'s timeline for memes.\n")
+    # Download the latest images from the timeline
+    try:
+        num_images = tl_handler.get_and_download(api, '/Users/hakeemangulu/Code/twitter/popmemes/downloads', num_tweets=200, profile=user)
+    except ValueError:
+        print("We cannot analyze this user's profile. Please re-run the script and  try again.")
+        quit()
 
 # Build a list of image names, then their pairwise combinations
-names = ["test_img" + str(i) + ".jpg" for i in range(1, num_images)]
+names = ["test_img" + str(i) + ".jpg" for i in range(1, num_images + 1)]
 pairs = list(itertools.combinations(names, 2))
 
 # Build the similarity matrix
@@ -37,7 +50,7 @@ pop_images = []
 for img1, img2 in pairs:
     sim = matcher.check_similarity(orb, img1, img2)
     sim_matrix[img1 + " vs. " + img2] = sim
-    if sim > 0.18:
+    if sim > 0.17:
         same_images[img1 + " vs. " + img2] = sim
         pop_images.extend([img1, img2])
 
@@ -54,6 +67,6 @@ for im, oc in occurrences.items():
 
 print(same_images)
 if same_images:
-    print(f"The most popular meme is {max_image}, which occurred {(max_occurrence / len(pop_images)) * 100} percent of the time.")
+    print(f"The most popular meme is {max_image}, which occurred {(float(max_occurrence) / len(pop_images)) * 100} percent of the time.")
 else:
     print(f"All the images are unique.")
