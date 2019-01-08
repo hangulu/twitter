@@ -108,7 +108,7 @@ def check_similarity(detector, img1_name, img2_name, nmatches=1):
 
     # Define a threshold of similarity from empirical testing (two Pikachu
     # memes): 42 / 217 ~ 19%
-    if similarity > 0.18:
+    if similarity > 0.17:
         print(f"{img1_name} and {img2_name} are a match, with a similarity of {str(similarity)}.")
     else:
         print(f"{img1_name} and {img2_name} are not a match, with a similarity of {str(similarity)}.")
