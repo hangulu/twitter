@@ -62,7 +62,7 @@ def downloader(urls, path):
     counter = 1
     for media_file in urls:
         # Create the file name
-        file_name = "test_img" + str(counter) + ".jpg"
+        file_name = "meme" + str(counter) + ".jpg"
         file_location = path + "/" + file_name
         print(f"Downloading {media_file} as {file_name}.")
         # Overwrite files

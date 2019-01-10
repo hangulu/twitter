@@ -39,7 +39,7 @@ else:
         quit()
 
 # Build a list of image names, then their pairwise combinations
-names = ["test_img" + str(i) + ".jpg" for i in range(1, num_images + 1)]
+names = ["meme" + str(i) + ".jpg" for i in range(1, num_images + 1)]
 pairs = list(itertools.combinations(names, 2))
 
 # Build the similarity matrix
@@ -67,6 +67,6 @@ for im, oc in occurrences.items():
 
 print(same_images)
 if same_images:
-    print(f"The most popular meme is {max_image}, which occurred {(float(max_occurrence) / len(pop_images)) * 100} percent of the time.")
+    print(f"The most popular meme is {max_image}, which occurred {(float(max_occurrence) / len(sim_matrix)) * 100} percent of the time.")
 else:
     print(f"All the images are unique.")
