@@ -123,7 +123,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Whitelist localhost:3000 because that's where frontend will be served
-    CORS_ORIGIN_WHITELIST = (
-         'localhost:3000/'
-     )
+# Allow all hosts
+CORS_ORIGIN_ALLOW_ALL = True
