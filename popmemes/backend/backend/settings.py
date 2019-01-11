@@ -124,4 +124,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Allow all hosts
+# Django-cors-headers is a python library that will help in preventing the
+# errors that we would normally get due to CORS rules
 CORS_ORIGIN_ALLOW_ALL = True
