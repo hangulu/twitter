@@ -12,6 +12,7 @@ numpy = "*"
 pandas = "*"
 tweepy = "*"
 wget = "*"
+django = "*"
 
 [requires]
 python_version = "3.6"
