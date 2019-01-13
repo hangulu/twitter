@@ -9,4 +9,4 @@ from .models import Popmemes
 class MemeSerializer(serializers.ModelSerializer):
   class Meta:
     model = Popmemes
-    fields = ('id', 'user')
+    fields = ('id', 'user', 'pop_img', 'freq')
