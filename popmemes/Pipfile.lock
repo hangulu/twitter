@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "66f1d283e458e5ba53e2396e7dccd3260929b961795e63d7ed093f7f186b7955"
+            "sha256": "6a4e1620bf91de763a1c59f17edc6e70bb86234fd9ca046a4701c0f752180203"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -219,6 +219,10 @@
             ],
             "index": "pypi",
             "version": "==0.23.4"
+        },
+        "popmemes": {
+            "editable": true,
+            "path": "."
         },
         "pyparsing": {
             "hashes": [
