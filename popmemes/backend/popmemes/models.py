@@ -11,7 +11,7 @@ class Popmemes(models.Model):
     # The most popular image on the user's timeline
     pop_img = models.CharField(max_length=120)
     # The frequency of the most popular image
-    freq = models.FloatField(max_value=100., min_value=0.)
+    freq = models.FloatField()
 
     def _str_(self):
         return self.user
