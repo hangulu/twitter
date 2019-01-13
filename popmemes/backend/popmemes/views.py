@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from .serializers import MemeSerializer
 from .models import Popmemes
 
-import popmemes.main as pm
+# import popmemes.main as pm
 
 # Create your views here.
 class MemeView(viewsets.ModelViewSet):
@@ -20,5 +20,6 @@ class MemeView(viewsets.ModelViewSet):
         # When the user hits submit
         if request.method == 'POST':
             username = request.data
-            image, freq = pm.memr(username)
+            # image, freq = pm.memr(username)
+            image, freq = "meme1", 25.
             return Response({'pop_image': image, 'frequency': freq}, status=status.HTTP_201_CREATED)
