@@ -15,9 +15,11 @@ import tl_handler
 # Import OAuthHandler parameters
 from auth import *
 
-def memr():
+def memr(username):
     """
     Run the meme finding function.
+
+    username (string): The Twiter handle of the user to be analyzed.
     return: the top meme
     """
     # Authentication
@@ -28,8 +30,10 @@ def memr():
     # ORB creation
     orb = cv2.ORB_create()
 
-    # Accept the user's handle as input
-    user = "@" + input("Whose timeline would you like to analyze? ")
+    # # Accept the user's handle as input
+    # user = "@" + input("Whose timeline would you like to analyze? ")
+
+    user = "@" + username
 
     if user == "@adminpass":
         print("You've entered the admin password. Now analyzing @hakeemangulu's full timeline. \n")
@@ -40,8 +44,9 @@ def memr():
         try:
             num_images = tl_handler.get_and_download(api, '/Users/hakeemangulu/Code/twitter/popmemes/downloads', num_tweets=200, profile=user)
         except ValueError:
-            print("We cannot analyze this user's profile. Please re-run the script and  try again.")
-            quit()
+            print("We cannot analyze this user's profile. Please re-run the script and try again.")
+            return "failure", 0
+            # quit()
 
     # Build a list of image names, then their pairwise combinations
     names = ["meme" + str(i) + ".jpg" for i in range(1, num_images + 1)]
@@ -72,6 +77,13 @@ def memr():
 
     print(same_images)
     if same_images:
-        print(f"The most popular meme is {max_image}, which occurred {(float(max_occurrence) / len(sim_matrix)) * 100} percent of the time.")
+        pop_freq = (float(max_occurrence) / len(sim_matrix)) * 100
+        print(f"The most popular meme is {max_image}, which occurred {pop_freq} percent of the time.")
     else:
+        pop_freq = 0.
         print(f"All the images are unique.")
+
+    return max_image, pop_freq
+
+if __name__ == '__main__':
+    memr()
