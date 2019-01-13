@@ -7,11 +7,11 @@ class Popmemes(models.Model):
     database.
     """
      # Twiter handle
-    user = models.CharField(max_length=120)
+    user = models.CharField(max_length=120, default=None)
     # The most popular image on the user's timeline
-    pop_img = models.CharField(max_length=120)
+    pop_img = models.CharField(max_length=120, default=None)
     # The frequency of the most popular image
-    freq = models.FloatField()
+    freq = models.FloatField(default=None)
 
     def _str_(self):
         return self.user
