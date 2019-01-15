@@ -13,12 +13,13 @@ class Form extends Component {
 
   // Buffer between submission and analysis
   analyzing() {
-    return (
-      <span>
-      Analyzing this user's timeline.
-      </span>
-    );
-  }
+    axios
+      // Get the meme with the specified username
+      .get("http://localhost:8000/api/popmemes/", {params: {user: this.state.value}})
+      // Handle the response
+      .then(response => this.setState({ memeList: res.data }))
+      .catch(error => console.log(err));
+  };
 
   // Change the value of the state on every keypress
   handleChange(event) {
@@ -30,8 +31,9 @@ class Form extends Component {
     alert('Now analyzing the following Twitter user: @' + this.state.value);
     event.preventDefault();
     axios
-      .post("http://localhost:8000/api/popmemes/", event)
-      .then(res => this.analyzing());
+      // Post the meme with the username
+      .post("http://localhost:8000/api/popmemes/", {user: this.state.value})
+      .then(response => this.analyzing());
   }
 
   // Allow one to submit the form by hitting Enter
