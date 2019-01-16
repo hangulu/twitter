@@ -4,7 +4,7 @@ import axios from "axios";
 class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {value: '', image: '', freq: '', run: 'false'};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -16,9 +16,9 @@ class Form extends Component {
     axios
       // Get the meme with the specified username
       .get("http://localhost:8000/api/popmemes/", {params: {user: this.state.value}})
-      // Handle the response
-      .then(response => this.setState({ memeList: res.data }))
-      .catch(error => console.log(err));
+      // Handle the response, and set run to true
+      .then(res => this.setState({ image: res.data[0], freq: res.data[1], run: true }))
+      .catch(err => console.log(err));
   };
 
   // Change the value of the state on every keypress
@@ -41,6 +41,27 @@ class Form extends Component {
     if (event.keyCode == 13) return this.sendData();
   }
 
+  renderMeme() {
+    // Make variables to store the image and frequency
+    const image = this.state.image
+    const freq = this.state.freq
+    const user = this.state.value
+
+    if (this.state.run === true) {
+      return (
+        <span>
+        An analysis of the profile of {user} shows that {image} is the most popular image, with a frequency of {freq}.
+        </span>
+      );
+    } else {
+      return (
+        <span>
+        Waiting on input.
+        </span>
+      );
+    }
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit} onKeyUp={this.handleKeyUp}>
@@ -49,6 +70,7 @@ class Form extends Component {
         </label>
         <input type="submit" value="Submit" class="form-control btn-success" />
       </form>
+      {this.renderMeme}
     );
   }
 }
