@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from .serializers import MemeSerializer
 from .models import Popmemes
 
-# import popmemes.main as pm
+import find_memes as fm
 
 # Create your views here.
 class MemeView(viewsets.ModelViewSet):
@@ -21,10 +21,10 @@ class MemeView(viewsets.ModelViewSet):
         # When the user hits submit
         if request.method == 'POST':
             username = request.data
-            # image, freq = pm.memr(username)
-            image, freq = "meme1", 25.
+            image, freq = fm.memr(username)
+            # image, freq = "meme1", 25.
             # Serialize the response, check its validity, then save
-            serializer = MemeSerializer('user': username, 'pop_img': image, 'freq': freq)
+            serializer = MemeSerializer({'user': username, 'pop_img': image, 'freq': freq})
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
