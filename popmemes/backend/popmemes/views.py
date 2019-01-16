@@ -10,6 +10,7 @@ from .models import Popmemes
 # Create your views here.
 class MemeView(viewsets.ModelViewSet):
     serializer_class = MemeSerializer
+    lookup_field = 'user'
     queryset = Popmemes.objects.all()
 
     @api_view(['POST', 'GET'])
@@ -22,4 +23,19 @@ class MemeView(viewsets.ModelViewSet):
             username = request.data
             # image, freq = pm.memr(username)
             image, freq = "meme1", 25.
-            return Response({'pop_image': image, 'frequency': freq}, status=status.HTTP_201_CREATED)
+            # Serialize the response, check its validity, then save
+            serializer = MemeSerializer('user': username, 'pop_img': image, 'freq': freq)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == 'GET':
+            # Get the meme by the username
+            try:
+                meme = Popmemes.objects.get(user=request.data)
+            except ValueError:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+            # Serialize the meme then return it
+            serializer = MemeSerializer(meme)
+            return Response(serializer.data)
