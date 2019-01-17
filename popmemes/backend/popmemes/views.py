@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from .serializers import MemeSerializer
 from .models import Popmemes
 
-import find_memes as fm
+import popmemes.find_memes as fm
 
 # Create your views here.
 class MemeView(viewsets.ModelViewSet):
