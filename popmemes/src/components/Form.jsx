@@ -20,8 +20,8 @@ class Form extends Component {
       .get("http://localhost:8000/api/popmemes/", {params: {user: this.state.value}})
       // Handle the response, and set run to true
       .then(res => this.setState({ image: res.data[0], freq: res.data[1], run: true }))
-      // .then(res => alert("The most popular image on the user " +  this.state.value + "'s  timeline is" + this.state.image + " with a frequency of " + this.state.freq))
-      .then(res => this.renderMeme)
+      .then(res => alert("The most popular image on @" +  this.state.value + "'s timeline is " + this.state.image + " with a frequency of " + this.state.freq + "."))
+      // .then(res => this.renderMeme())
       .catch(err => console.log(err));
   };
 
