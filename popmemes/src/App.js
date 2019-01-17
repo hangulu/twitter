@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from './pluslogo.svg';
 import './App.css';
 import Form from './components/Form';
-import axios from "axios";
 
 class App extends Component {
   render() {

@@ -39,7 +39,7 @@ class Form extends Component {
 
   // Allow one to submit the form by hitting Enter
   handleKeyUp(event) {
-    if (event.keyCode == 13) return this.sendData();
+    if (event.keyCode === 13) return this.sendData();
   }
 
   renderMeme() {
