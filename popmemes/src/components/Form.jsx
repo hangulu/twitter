@@ -9,6 +9,8 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.analyzing = this.analyzing.bind(this);
+    this.renderMeme = this.renderMeme.bind(this);
   }
 
   // Buffer between submission and analysis
@@ -18,7 +20,8 @@ class Form extends Component {
       .get("http://localhost:8000/api/popmemes/", {params: {user: this.state.value}})
       // Handle the response, and set run to true
       .then(res => this.setState({ image: res.data[0], freq: res.data[1], run: true }))
-      .then(res => alert("The most popular image on the user " +  this.state.value + "'s  timeline is" + this.state.image + " with a frequency of " + this.state.freq))
+      // .then(res => alert("The most popular image on the user " +  this.state.value + "'s  timeline is" + this.state.image + " with a frequency of " + this.state.freq))
+      .then(res => this.renderMeme)
       .catch(err => console.log(err));
   };
 
@@ -34,7 +37,7 @@ class Form extends Component {
     axios
       // Post the meme with the username
       .post("http://localhost:8000/api/popmemes/", {user: this.state.value})
-      .then(response => this.analyzing());
+      .then(res => this.analyzing());
   }
 
   // Allow one to submit the form by hitting Enter
