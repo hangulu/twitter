@@ -15,7 +15,7 @@ mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import os
 
-dataset_path = '../popmemes/downloads'
+dataset_path = '/Users/hakeemangulu/Code/twitter/popmemes/downloads'
 
 def feature_detection(meme_name):
     """
