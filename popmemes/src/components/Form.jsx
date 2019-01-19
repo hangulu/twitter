@@ -36,7 +36,7 @@ class Form extends Component {
     event.preventDefault();
     axios
       // Post the meme with the username
-      .post("http://localhost:8000/api/popmemes/", {user: this.state.value})
+      .post("http://localhost:8000/api/popmemes/", {user: this.state.value, image: 'meme12', freq: 10.})
       .then(res => this.analyzing());
   }
 
