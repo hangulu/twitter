@@ -2,8 +2,6 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8000';
 
 export default class ImageService {
-  constructor(){}
-
   // Get all popmemes
   getPopmemes() {
       const url = `${API_URL}/api/popmemes/`;
