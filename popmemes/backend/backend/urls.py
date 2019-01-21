@@ -18,6 +18,7 @@ Specify the URL path for the API
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from django.conf.urls import url
 from popmemes import views
 
 # router = routers.DefaultRouter()
@@ -25,8 +26,8 @@ from popmemes import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^api/popmemes/$', views.show_popmeme'),
-    url(r'^api/popmemes/(?P<user>)$', views.popmeme_detail),
+    url(r'^api/popmemes/$', views.show_popmeme),
+    url(r'^api/popmemes/(?P<user>\w+)/$', views.popmeme_detail)
 ]
 
 # urlpatterns = [
