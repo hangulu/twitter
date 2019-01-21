@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from "axios";
 import ImageService from '../ImageService';
 
 // Instantiate the ImageService module
@@ -37,7 +36,7 @@ class Form extends Component {
 
   // Display a user's data
   displayData(user) {
-    var self = this;
+    // var self = this;
     imservice.getPopmeme(user)
       // Set the properties using the response dictionary
       .then(res => console.log(res.data));
