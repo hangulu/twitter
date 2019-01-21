@@ -54,18 +54,18 @@ def popmeme_detail(request, user):
     return: data with HTTP response
     """
     try:
-        meme = Popmemes.objects.get(user=user)
+        meme = Popmemes.objects.filter(user=user).first()
     except ValueError:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         # Get the information on this user
-        serializer = MemeSerializer(user, context={'request': request})
+        serializer = MemeSerializer(meme, context={'request': request})
         return Response(serializer.data)
 
     elif request.method == 'PUT':
         # Update this user
-        serializer = MemeSerializer(user, data=request.data, context={'request': request})
+        serializer = MemeSerializer(meme, data=request.data, context={'request': request})
         if serializer.is_valid():
             # Save to the database
             serializer.save()
