@@ -35,13 +35,13 @@ def show_popmeme(request):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        # Get the meme by the username
+        # Get all memes
         try:
-            meme = Popmemes.objects.get(user=request.data)
+            memes = Popmemes.objects.all()
         except ValueError:
             return Response(status=status.HTTP_404_NOT_FOUND)
         # Serialize the meme then return it
-        serializer = MemeSerializer(meme)
+        serializer = MemeSerializer(memes, context={'request': request}, many=True)
         return Response(serializer.data)
 
 @api_view(['GET', 'PUT', 'DELETE'])
