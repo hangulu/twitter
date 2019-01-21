@@ -1,17 +1,11 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import MemeSerializer
 from .models import Popmemes
 
 import popmemes.find_memes as fm
-
-# # Create your views here.
-# class MemeView(viewsets.ModelViewSet):
-#     serializer_class = MemeSerializer
-#     lookup_field = 'user'
-#     queryset = Popmemes.objects.all()
 
 @api_view(['POST', 'GET'])
 def show_popmeme(request):
@@ -23,11 +17,11 @@ def show_popmeme(request):
     """
     # When the user hits submit
     if request.method == 'POST':
-        username = request.data
+        username = (request.body).decode('utf-8')
         # image, freq = fm.memr(username)
         image, freq = "meme2", 5.
         # Serialize the response, check its validity, then save
-        serializer = MemeSerializer({'user': username, 'pop_img': image, 'freq': freq})
+        serializer = MemeSerializer(data={'user': username, 'pop_img': image, 'freq': freq})
         if serializer.is_valid():
             # Save the serialized data in the database
             serializer.save()
