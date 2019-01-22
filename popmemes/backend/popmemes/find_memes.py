@@ -8,6 +8,7 @@ import wget
 import cv2
 import itertools
 from collections import Counter
+import shutil
 
 import matcher
 import tl_handler
@@ -83,6 +84,8 @@ def memr(username):
         pop_freq = 0.
         print(f"All the images are unique.")
 
+    # Copy the file to the src folder
+    shutil.copyfile(f'/Users/hakeemangulu/Code/twitter/popmemes/downloads/{max_image}.jpg', f'/Users/hakeemangulu/Code/twitter/popmemes/src/images/popimg.jpg')
     return max_image, pop_freq
 
 if __name__ == '__main__':
