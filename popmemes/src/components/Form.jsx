@@ -59,7 +59,7 @@ class Form extends Component {
       );
     } else {
       // Allow the user to reload the form
-      if self.state.image === "No Popular Image" {
+      if (self.state.image === "No Popular Image") {
         return (
           <div>
             <p class="result">
