@@ -3,12 +3,12 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import MemeSerializer
-from .models import Popmemes
+from .models import PopImage
 
 import popmemes.find_memes as fm
 
 @api_view(['POST', 'GET'])
-def show_popmeme(request):
+def show_popimg(request):
     """
     Show the most popular meme on the timeline.
 
@@ -31,7 +31,7 @@ def show_popmeme(request):
     elif request.method == 'GET':
         # Get all memes
         try:
-            memes = Popmemes.objects.all()
+            memes = PopImage.objects.all()
         except ValueError:
             return Response(status=status.HTTP_404_NOT_FOUND)
         # Serialize the meme then return it
@@ -39,7 +39,7 @@ def show_popmeme(request):
         return Response(serializer.data)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def popmeme_detail(request, user):
+def popimg_detail(request, user):
     """
     Retrieve, update or delete a user by their username.
 
@@ -48,7 +48,7 @@ def popmeme_detail(request, user):
     return: data with HTTP response
     """
     try:
-        meme = Popmemes.objects.filter(user=user).first()
+        meme = PopImage.objects.filter(user=user).first()
     except ValueError:
         return Response(status=status.HTTP_404_NOT_FOUND)
 

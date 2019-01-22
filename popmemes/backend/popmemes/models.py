@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Popmemes(models.Model):
+class PopImage(models.Model):
     """
     Create a model to define how the Popmeme objects should be stored in the
     database.
@@ -13,5 +13,5 @@ class Popmemes(models.Model):
     # The frequency of the most popular image
     freq = models.FloatField(null=True, blank=True, default=None)
 
-    def _str_(self):
+    def __str__(self):
         return self.user

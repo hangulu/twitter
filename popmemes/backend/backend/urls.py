@@ -26,8 +26,8 @@ from popmemes import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^api/popmemes/$', views.show_popmeme),
-    url(r'^api/popmemes/(?P<user>\w+)/$', views.popmeme_detail)
+    url(r'^api/popmemes/$', views.show_popimg),
+    url(r'^api/popmemes/(?P<user>\w+)/$', views.popimg_detail)
 ]
 
 # urlpatterns = [
