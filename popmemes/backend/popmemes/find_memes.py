@@ -10,8 +10,8 @@ import itertools
 from collections import Counter
 import shutil
 
-import matcher
-import tl_handler
+import popmemes.matcher
+import popmemes.tl_handler
 
 # Import OAuthHandler parameters
 from auth import *
