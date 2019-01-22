@@ -17,7 +17,7 @@ def show_popimg(request):
     """
     # When the user hits submit
     if request.method == 'POST':
-        username = (request.body).decode('utf-8')
+        username = request.body.decode('utf-8')
         # image, freq = fm.memr(username)
         image, freq = "meme2", 5.
         # Serialize the response, check its validity, then save
