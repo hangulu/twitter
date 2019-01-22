@@ -31,12 +31,9 @@ def memr(username):
     # ORB creation
     orb = cv2.ORB_create()
 
-    # # Accept the user's handle as input
-    # user = "@" + input("Whose timeline would you like to analyze? ")
-
     user = "@" + username
 
-    if user == "@adminpass":
+    if user == "@hakeemangulu":
         print("You've entered the admin password. Now analyzing @hakeemangulu's full timeline. \n")
         num_images = tl_handler.get_and_download(api, '/Users/hakeemangulu/Code/twitter/popmemes/downloads', num_tweets=100, admin=True)
     else:
