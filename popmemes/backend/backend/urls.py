@@ -21,17 +21,8 @@ from rest_framework import routers
 from django.conf.urls import url
 from popmemes import views
 
-# router = routers.DefaultRouter()
-# router.register(r'popmemes', views.MemeView, 'popmemes')
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^api/popmemes/$', views.show_popimg),
-    url(r'^api/popmemes/(?P<user>\w+)/$', views.popimg_detail)
+    url(r'^api/popimg/$', views.show_popimg),
+    url(r'^api/popimg/(?P<user>\w+)/$', views.popimg_detail)
 ]
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('api/', include(router.urls)),
-#     path('', include(router.urls))
-# ]
