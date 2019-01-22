@@ -44,24 +44,32 @@ class Form extends Component {
     // If the form has not been filled, allow it to be filled
     if (self.state.user === '') {
       return (
-        <form onSubmit={this.handleSubmit} onKeyUp={this.handleKeyUp}>
-          <label>
-            <input type="text" value={this.state.value} onChange={this.handleChange} class="form-control" />
-          </label>
-          <input type="submit" value="Submit" class="form-control btn-success" />
-        </form>
+        <div>
+          <p>
+            Enter the Twitter handle of the user whose timeline you'd like to analyze:
+          </p>
+
+          <form onSubmit={this.handleSubmit} onKeyUp={this.handleKeyUp}>
+            <label>
+              <input type="text" value={this.state.value} onChange={this.handleChange} class="form-control" />
+            </label>
+            <input type="submit" value="Submit" class="form-control btn-success resize" />
+          </form>
+        </div>
       );
     } else {
       // Allow the user to reload the form
       return (
         <div>
-          <p>
-            The most popular image on the timeline of Twitter user @{self.state.user} is {self.state.image} with a frequency of {self.state.freq}%.
+          <p class="result">
+            The most popular image on the timeline of Twitter user @{self.state.user} is below, appearing with a frequency of {self.state.freq}%.
           </p>
-
-          <form onSubmit={this.newUser}>
-            <input type="submit" value="New User" class="form-control btn-success" />
-          </form>
+          <img class="resize" src={require('../images/popimg.jpg')} alt="The most popular content on the timeline" />
+          <div>
+            <form onSubmit={this.newUser}>
+              <input type="submit" value="New User" class="form-control btn-success resize" />
+            </form>
+          </div>
         </div>
       );
     }
