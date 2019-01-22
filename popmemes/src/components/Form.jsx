@@ -19,7 +19,7 @@ class Form extends Component {
   // Called when the component is created and inserted into the DOM
   componentDidMount() {
     var self = this;
-    imservice.getPopmemes()
+    imservice.getPopimages()
       .then(result => self.setState({image: 'No Image'}));
   }
 
@@ -29,7 +29,7 @@ class Form extends Component {
     var self = this;
     // alert('Now analyzing the Twitter user @' + user);
     // Post the meme with the username
-    imservice.createPopmeme(user)
+    imservice.createPopimage(user)
       .then(() => self.setState({user: user}))
       .then(() => self.displayData(self.state.user));
   }
@@ -37,7 +37,7 @@ class Form extends Component {
   // Display a user's data
   displayData(user) {
     // var self = this;
-    imservice.getPopmeme(user)
+    imservice.getPopimage(user)
       // Set the properties using the response dictionary
       .then(res => console.log(res.data));
       // .then(res => self.setState({image: res['pop_img'], freq: res['freq']}))

@@ -3,32 +3,32 @@ const API_URL = 'http://localhost:8000';
 
 export default class ImageService {
   // Get all popmemes
-  getPopmemes() {
-      const url = `${API_URL}/api/popmemes/`;
+  getPopimages() {
+      const url = `${API_URL}/api/popimg/`;
       return axios.get(url).then(response => response.data);
   }
 
   // Get a single popmeme, by its username
-  getPopmeme(user) {
-      const url = `${API_URL}/api/popmemes/${user}`;
+  getPopimage(user) {
+      const url = `${API_URL}/api/popimg/${user}`;
       return axios.get(url).then(response => response.data);
   }
 
   // Delete a single popmeme, by its username
-  deletePopmeme(user) {
-      const url = `${API_URL}/api/popmemes/${user}`;
+  deletePopimage(user) {
+      const url = `${API_URL}/api/popimg/${user}`;
       return axios.delete(url);
   }
 
   // Add a new popmeme
-  createPopmeme(user) {
-      const url = `${API_URL}/api/popmemes/`;
+  createPopimage(user) {
+      const url = `${API_URL}/api/popimg/`;
       return axios.post(url, user);
   }
 
   // Update a meme
-  updatePopmeme(user){
-      const url = `${API_URL}/api/user/${user}`;
+  updatePopimage(user){
+      const url = `${API_URL}/api/popimg/${user}`;
       return axios.put(url, user);
   }
 }
