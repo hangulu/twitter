@@ -56,6 +56,7 @@ def memr(username):
     pop_images = []
 
     for img1, img2 in pairs:
+        print(f"Checking {img1} vs {img2}.")
         sim = matcher.check_similarity(orb, img1, img2)
         sim_matrix[img1 + " vs. " + img2] = sim
         if sim > 0.17:
