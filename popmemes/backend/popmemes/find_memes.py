@@ -38,12 +38,12 @@ def memr(username):
 
     if user == "@adminpass":
         print("You've entered the admin password. Now analyzing @hakeemangulu's full timeline. \n")
-        num_images = tl_handler.get_and_download(api, '/Users/hakeemangulu/Code/twitter/popmemes/downloads', num_tweets=200, admin=True)
+        num_images = tl_handler.get_and_download(api, '/Users/hakeemangulu/Code/twitter/popmemes/downloads', num_tweets=100, admin=True)
     else:
         print(f"Now analyzing {user}'s timeline for memes.\n")
         # Download the latest images from the timeline
         try:
-            num_images = tl_handler.get_and_download(api, '/Users/hakeemangulu/Code/twitter/popmemes/downloads', num_tweets=200, profile=user)
+            num_images = tl_handler.get_and_download(api, '/Users/hakeemangulu/Code/twitter/popmemes/downloads', num_tweets=100, profile=user)
         except ValueError:
             print("We cannot analyze this user's profile. Please re-run the script and try again.")
             return "failure", 0
