@@ -31,10 +31,20 @@
   }
 }
 
-.new-user-button {
+input.resize {
   display: block;
   margin: auto;
   width: 25%;
   align-content: center;
   justify-content: center;
+}
+
+img.resize {
+  max-width:40%;
+  max-height:40%;
+  margin-bottom: 10px;
+}
+
+p.result {
+  font-size: 80%;
 }
