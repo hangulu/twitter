@@ -30,3 +30,11 @@
     transform: rotate(360deg);
   }
 }
+
+.new-user-button {
+  display: block;
+  margin: auto;
+  width: 25%;
+  align-content: center;
+  justify-content: center;
+}
