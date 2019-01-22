@@ -10,7 +10,7 @@ import wget
 import os
 
 # Import OAuthHandler parameters
-from auth import *
+from popmemes.auth import *
 
 # Authentication
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)

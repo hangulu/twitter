@@ -14,7 +14,7 @@ import popmemes.matcher as matcher
 import popmemes.tl_handler as tl_handler
 
 # Import OAuthHandler parameters
-from auth import *
+from popmemes.auth import *
 
 def memr(username):
     """
