@@ -18,8 +18,11 @@ def show_popimg(request):
     # When the user hits submit
     if request.method == 'POST':
         username = request.body.decode('utf-8')
-        # image, freq = fm.memr(username)
-        image, freq = "meme2", 5.
+        image, freq = fm.memr(username)
+        if image is None:
+            image = "No Popular Image"
+            freq = 0.
+        # image, freq = "meme2", 5.
         # Serialize the response, check its validity, then save
         serializer = MemeSerializer(data={'user': username, 'pop_img': image, 'freq': freq})
         if serializer.is_valid():

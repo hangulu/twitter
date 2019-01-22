@@ -10,8 +10,8 @@ import itertools
 from collections import Counter
 import shutil
 
-import popmemes.matcher
-import popmemes.tl_handler
+import popmemes.matcher as matcher
+import popmemes.tl_handler as tl_handler
 
 # Import OAuthHandler parameters
 from auth import *
@@ -83,7 +83,8 @@ def memr(username):
         print(f"All the images are unique.")
 
     # Copy the file to the src folder
-    shutil.copyfile(f'/Users/hakeemangulu/Code/twitter/popmemes/downloads/{max_image}.jpg', f'/Users/hakeemangulu/Code/twitter/popmemes/src/images/popimg.jpg')
+    if max_image:
+        shutil.copyfile(f'/Users/hakeemangulu/Code/twitter/popmemes/downloads/{max_image}.jpg', f'/Users/hakeemangulu/Code/twitter/popmemes/src/images/popimg.jpg')
     return max_image, pop_freq
 
 if __name__ == '__main__':

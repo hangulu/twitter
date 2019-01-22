@@ -59,19 +59,29 @@ class Form extends Component {
       );
     } else {
       // Allow the user to reload the form
-      return (
-        <div>
-          <p class="result">
-            The most popular image on the timeline of Twitter user @{self.state.user} is below, appearing with a frequency of {self.state.freq}%.
-          </p>
-          <img class="resize" src={require('../images/popimg.jpg')} alt="The most popular content on the timeline" />
+      if self.state.image === "No Popular Image" {
+        return (
           <div>
-            <form onSubmit={this.newUser}>
-              <input type="submit" value="New User" class="form-control btn-success resize" />
-            </form>
+            <p class="result">
+              The most popular image on the timeline of Twitter user @{self.state.user} is below, appearing with a frequency of {self.state.freq}%.
+            </p>
+            <img class="resize" src={require('../images/popimg.jpg')} alt="The most popular content on the timeline" />
+            <div>
+              <form onSubmit={this.newUser}>
+                <input type="submit" value="New User" class="form-control btn-success resize" />
+              </form>
+            </div>
           </div>
-        </div>
-      );
+        );
+      } else {
+        return (
+          <div>
+            <p class="result">
+              All the images on the timeline of Twitter user @{self.state.user} are unique.
+            </p>
+          </div>
+        );
+      }
     }
   }
 }
